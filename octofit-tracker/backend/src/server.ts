@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { connectToDatabase } from './config/database';
+import { getApiBaseUrl } from './config/api';
 import routes from './routes';
 
 dotenv.config();
@@ -17,6 +18,7 @@ async function start() {
   await connectToDatabase();
   app.listen(port, () => {
     console.log(`Backend listening on port ${port}`);
+    console.log(`API base URL: ${getApiBaseUrl()}`);
   });
 }
 
