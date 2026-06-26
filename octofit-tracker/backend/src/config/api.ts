@@ -1,7 +1,8 @@
 export function getApiBaseUrl() {
   const codespaceName = process.env.CODESPACE_NAME;
+  const codespacesUrl = `https://${codespaceName}-8000.app.github.dev`;
   if (codespaceName) {
-    return `https://${codespaceName}-8000.app.github.dev`;
+    return codespacesUrl;
   }
   return 'http://localhost:8000';
 }

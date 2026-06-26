@@ -19,6 +19,7 @@ async function start() {
   app.listen(port, () => {
     console.log(`Backend listening on port ${port}`);
     console.log(`API base URL: ${getApiBaseUrl()}`);
+    console.log('Codespaces URL format: https://$CODESPACE_NAME-8000.app.github.dev');
   });
 }
 
