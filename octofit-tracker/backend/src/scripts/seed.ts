@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import { connectToDatabase } from '../database';
 import { User } from '../models/User';
 import { Team } from '../models/Team';
 import { Activity } from '../models/Activity';
@@ -11,8 +12,7 @@ dotenv.config();
 async function seed() {
   console.log('Seed the octofit_db database with test data');
 
-  const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/octofit_db';
-  await mongoose.connect(mongoUri);
+  await connectToDatabase();
 
   await Promise.all([
     User.deleteMany({}),
