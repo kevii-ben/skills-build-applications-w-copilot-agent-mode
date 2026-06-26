@@ -6,14 +6,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const db_1 = require("./db");
+const routes_1 = __importDefault(require("./routes"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 8000;
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
-app.get('/api/health', (_req, res) => {
-    res.json({ status: 'ok', service: 'octofit-backend' });
-});
-app.listen(port, () => {
-    console.log(`Backend listening on port ${port}`);
+app.use(routes_1.default);
+async function start() {
+    await (0, db_1.connectToDatabase)();
+    app.listen(port, () => {
+        console.log(`Backend listening on port ${port}`);
+    });
+}
+start().catch((error) => {
+    console.error('Failed to start server', error);
+    process.exit(1);
 });
